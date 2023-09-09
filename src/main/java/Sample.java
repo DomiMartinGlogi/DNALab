@@ -4,12 +4,13 @@ import org.jetbrains.annotations.NotNull;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 
 public class Sample {
     private static String[] validEndSeq = {"TGA", "TAG", "TAA"};
     private int length;
     private ArrayList<DNASequence> contents;
-    private int id;
+    private long id;
     private String origin;
     private Date dateFound;
 
@@ -32,10 +33,14 @@ public class Sample {
 
     public Sample(ArrayList<DNASequence> contents) {
         this.contents = contents;
-        id = 69;
         length = contents.size();
         dateFound = Date.from(Instant.now());
         origin = "TestData";
+        Random rand = new Random();
+        long lowerBound = 1000000000L;
+        long upperBound = 9999999999L;
+
+        id = rand.nextLong(lowerBound, upperBound);
     }
 
 
