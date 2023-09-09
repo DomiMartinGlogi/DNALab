@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -112,48 +113,34 @@ public class Report {
      * @return The calculated evolutionary distance.
      */
     public int calculateDistance() {
-        int minTotalDistance = Integer.MAX_VALUE;
-
-        if (samples.length < 2) {
-            // Not enough samples for comparison, return 0 distance.
+        if (samples.length != 2) {
             return 0;
         }
 
-        // Iterate over pairs of samples to calculate distances.
-        for (int i = 0; i < samples.length - 1; i++) {
-            for (int j = i + 1; j < samples.length; j++) {
-                Sample sample1 = samples[i];
-                Sample sample2 = samples[j];
+        Sample sample1 = samples[0];
+        Sample sample2 = samples[1];
+        ArrayList<DNASequence> seq1 = sample1.getContents();
+        ArrayList<DNASequence> seq2 = sample2.getContents();
 
-                DNASequence[] seq1 = sample1.getContents().toArray(new DNASequence[0]);
-                DNASequence[] seq2 = sample2.getContents().toArray(new DNASequence[0]);
+        // Calculate the total distance for this pair.
+        int totalDistance = 0;
 
-                // Compare each DNA sequence and calculate the distance.
-                int sequenceDistance = 0;
-                for (int k = 0; k < seq1.length; k++) {
-                    String bases1 = seq1[k].getBases();
-                    String bases2 = seq2[k].getBases();
+        for (int k = 0; k < seq1.size(); k++) {
+            String bases1 = seq1.get(k).getBases();
+            String bases2 = seq2.get(k).getBases();
 
-                    if (!bases1.equals(bases2)) {
-                        // Gene replacement costs 3.
-                        sequenceDistance += 3;
-                    }
-                }
-
-                // Calculate the total distance for this pair.
-                int totalDistance = sequenceDistance;
-
-                // Calculate the difference in gene counts.
-                int diff = Math.abs(seq1.length - seq2.length);
-
-                // Deleting a gene or creating a gene costs 2 each.
-                totalDistance += 2 * diff;
-
-                // Update the minimum total distance if needed.
-                minTotalDistance = Math.min(minTotalDistance, totalDistance);
+            if (!bases1.equals(bases2)) {
+                // Gene replacement costs 3.
+                totalDistance += 3;
             }
         }
 
-        return minTotalDistance;
+        // Calculate the difference in gene counts.
+        int diff = Math.abs(seq1.size() - seq2.size());
+        // Deleting a gene or creating a gene costs 2 each.
+        totalDistance += 2 * diff;
+
+        return totalDistance;
     }
+
 }
