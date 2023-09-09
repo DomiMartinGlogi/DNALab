@@ -125,15 +125,8 @@ public class Report {
                 Sample sample1 = samples[i];
                 Sample sample2 = samples[j];
 
-                // Assuming each sample has a method to get its DNA sequences.
                 DNASequence[] seq1 = sample1.getContents().toArray(new DNASequence[0]);
                 DNASequence[] seq2 = sample2.getContents().toArray(new DNASequence[0]);
-
-                if (seq1.length != seq2.length) {
-                    // Sequences must be of the same length for comparison.
-                    // You may want to handle this case differently based on your requirements.
-                    continue;
-                }
 
                 // Compare each DNA sequence and calculate the distance.
                 int sequenceDistance = 0;
