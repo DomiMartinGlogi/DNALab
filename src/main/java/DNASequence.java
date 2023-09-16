@@ -3,7 +3,7 @@
  */
 public class DNASequence {
     // A string containing the valid characters for a DNA sequence.
-    private static String validChars = "A T G C";
+    private static String validChars = "ATGC";
 
     // The actual DNA sequence as a string.
     private String bases;
@@ -24,15 +24,6 @@ public class DNASequence {
      */
     public static String getValidChars() {
         return validChars;
-    }
-
-    /**
-     * Sets the valid characters for a DNA sequence.
-     *
-     * @param validChars A string containing the valid DNA characters.
-     */
-    public static void setValidChars(String validChars) {
-        DNASequence.validChars = validChars;
     }
 
     /**
